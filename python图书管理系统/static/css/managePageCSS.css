@@ -1,0 +1,59 @@
+.mynav{
+    height: 100vh; 
+    background-color: #2c3e50; 
+    padding: 0;
+}
+
+.navArea{
+    position: relative;
+    top:100%;
+    transform: translateY(-100%);
+    padding: 0;
+}
+
+.mynavItem {
+    padding: 0;
+    background-color: #2c3e50;
+}
+
+.mynavItem:hover {
+    background-color: #33495f;
+}
+
+.mynavItemDiv{
+    height: 6vh;
+    color: #f1f2f6;
+    border-bottom: 2px;
+    border-bottom-color: white;
+}
+
+.myactive{
+    background-color: #7f8c8d;
+}
+
+.mycenter {
+    position: relative;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.mycenter_top{
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+.top_bar{
+    width: 95%;
+    height:10vh;
+    color:whitesmoke;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    background-color: #2c3e50;
+    display: inline-block;
+}
+
+.top_bar .button_group{
+    float:right;
+}

@@ -1,0 +1,50 @@
+{% extends 'user/user_header.html' %}
+{% block add %}
+<!-- 新 Bootstrap5 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="layui-body">
+
+        <div class="layui-container">
+            <hr class="layui-bg-blue">
+            <h3 style="text-align: center; font-size: xx-large"> 已 借 书 籍</h3>
+            <hr class="layui-bg-blue">
+            <table class="layui-table ">
+                <thead>
+                <tr>
+                    <th>书籍ID</th>
+                    <th>书名</th>
+                    <th>借书时间</th>
+                    <th>借书人</th>
+                    <th>详情</th>
+                    <th>还书</th>
+                </tr>
+                </thead>
+                {% for t in borrows %}
+                <tr>
+                    <td><label>{{ t.bookId }}</label></td>
+                    <td><label>{{ t.bookName }}</label></td>
+                    <td><label>{{ t.date }}日</label></td>
+                    <td><label>{{ t.userName }}</label></td>
+                    <td>
+                        <a href="{{ url_for('findBook',book_id = t.bookId) }}">
+                            <button  class="layui-btn" style="display: block; margin: 10px auto;">
+                                详情
+                            </button>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('returnBook',book_id = t.bookId) }}">
+                            <button  class="layui-btn" style="display: block; margin: 10px auto;">
+                                还书
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

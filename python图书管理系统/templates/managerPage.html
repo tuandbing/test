@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- 新 Bootstrap5 核心 css 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/CSS"
+        href="../static/css/bookManagePageCSS.css">
+    <link rel="stylesheet" type="text/CSS"
+          href="../static/css/bookStatsPageCSS.css">
+    <link rel="stylesheet" type="text/CSS"
+          href="../static/css/userManagePageCSS.css">
+    <link rel="stylesheet" type="text/CSS"
+          href="../static/css/borrowStatsPageCSS.css">
+    <link rel="stylesheet" type="text/CSS"
+          href="../static/css/managePageCSS.css">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/Chart.js/3.9.1/chart.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+
+<body>
+    <div class="row g-0">
+        <!--侧边导航栏-->
+        <div class="col-1 nav flex-column mynav">
+            <div class="navArea">
+                <li class="nav-item">
+                    <a class="nav-link mynavItem border-bottom border-light myactive" onclick="onNavClick(this.id)"
+                        id="bookManageNav">
+                        <div class="text-center mynavItemDiv">
+                            <h4 class="mycenter">图书管理&nbsp<i class="fa fa-angle-double-right"></i></h4>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mynavItem border-bottom border-light" onclick="onNavClick(this.id)"
+                        id="userManageNav">
+                        <div class="text-center mynavItemDiv">
+                            <h4 class="mycenter">用户管理&nbsp<i class="fa fa-angle-double-right"></i></h4>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mynavItem border-bottom border-light" onclick="onNavClick(this.id)"
+                        id="borrowStatNav">
+                        <div class="text-center mynavItemDiv">
+                            <h4 class="mycenter">借阅统计&nbsp<i class="fa fa-angle-double-right"></i></h4>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mynavItem border-bottom border-light" onclick="onNavClick(this.id)"
+                        id="bookStatNav">
+                        <div class="text-center mynavItemDiv">
+                            <h4 class="mycenter">图书统计&nbsp<i class="fa fa-angle-double-right"></i></h4>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mynavItem border-bottom border-light" onclick="onNavClick(this.id)"
+                        id="returnBookNav">
+                        <div class="text-center mynavItemDiv">
+                            <h4 class="mycenter">归还图书&nbsp<i class="fa fa-angle-double-right"></i></h4>
+                        </div>
+                    </a>
+                </li>
+            </div>
+        </div>
+        <!--侧边导航栏结束-->
+        <!--页面主体开始-->
+        <div class="col-11">
+            <!--顶部栏开始-->
+            <div class="top_bar">
+                <div class="mycenter_top" style="float: left;">
+                    <h1>&nbsp<i class="fa fa-book"></i>&nbsp左&nbsp职&nbsp图&nbsp书&nbsp馆&nbsp管&nbsp理&nbsp平&nbsp台</h1>
+                </div>
+                <!-- <div class="button_group mycenter_top"> -->
+                <button type="button" class="btn btn-outline-light mycenter_top button_group me-5">登录</button>
+                <button type="button" class="btn btn-outline-light mycenter_top button_group me-2">注册</button>
+                <!-- </div> -->
+            </div>
+            <!--顶部栏结束-->
+            <!--页面主体开始-->
+            <div class="row mx-2" id="innerHtml" style="height: 89vh; background-color: whitesmoke;">
+                <!--在此区域显示网页主体-->
+                <div class="row" id="bookManage">
+                    <div class="col-9 bookTableArea">
+                        <h1 class="text-center">图书总览</h1>
+                        <!--搜索栏开始-->
+                        <div class="row">
+                            <div class="col-3">
+                                <select class="form-select" id="searchType">
+                                    <option value="1">按作者查询</option>
+                                    <option value="2">按ISBN查询</option>
+                                    <option value="3">按书名查询</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <input type="search" class="form-control" placeholder="查询" id="searchInput">
+                            </div>
+                            <div class="col-3 d-grid">
+                                <button type="button" class="btn btn-primary btn-block"
+                                    onclick="onSearchBookClick()">查询</button>
+                            </div>
+                        </div>
+                        <!--搜索栏结束-->
+                        <div class="bookTable mt-2">
+                            <!--表格开始-->
+                            <table class="table table-bordered border border-2">
+                                <!--芝士表头-->
+                                <thead class="table-light" id="bookTableHead">
+                                    <tr>
+                                        <th class="text-center">书名</th>
+                                        <th class="text-center">作者</th>
+                                        <th class="text-center">ISBN号</th>
+                                        <th class="text-center">类型</th>
+                                        <th class="text-center">存书数量</th>
+                                        <th class="text-center">操作</th>
+                                    </tr>
+                                </thead>
+                                <!--芝士表身-->
+                                <tbody id="bookTableBody">
+                                    <!--一行数据-->
+{#                                    <tr>#}
+{#                                        <td class="text-center">《离散数学》</td>#}
+{#                                        <td class="text-center">大费</td>#}
+{#                                        <td class="text-center">ISBN-123456</td>#}
+{#                                        <td class="text-center">自然应用科学</td>#}
+{#                                        <td class="text-center">10</td>#}
+{#                                        <td class="text-center">#}
+{#                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"#}
+{#                                                data-bs-target="#takedownWanningModal"#}
+{#                                                onclick="onTakeDownBookClick(1)">下架书本</button>#}
+{#                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"#}
+{#                                                data-bs-target="#editBookInfoModal"#}
+{#                                                onclick="onReviseBookClick(1)">修改信息</button>#}
+{#                                        </td>#}
+{#                                    </tr>#}
+                                </tbody>
+                            </table>
+                            <!--表格结束-->
+                        </div>
+                    </div>
+                    <!--添加图书区域开始-->
+                    <div class="col-3 addBookArea">
+                        <h1 class="text-center">新增图书</h1>
+                        <div class="mt-5">
+                            <label for="newBookName" class="form-label mb-1">书名:</label>
+                            <input type="text" placeholder="书名" name="newBookName" id="newBookName"
+                                class="form-control">
+                        </div>
+                        <div class="mt-4">
+                            <label for="newIbsnCode" class="form-label mb-1">ISBN号:</label>
+                            <input type="text" placeholder="IBSN号" name="newIbsnCode" id="newIbsnCode"
+                                class="form-control">
+                        </div>
+                        <div class="mt-4">
+                            <label for="newWriter" class="form-label mb-1">作者:</label>
+                            <input type="text" placeholder="作者" name="newWriter" id="newWriter" class="form-control">
+                        </div>
+                        <div class="mt-4">
+                            <label for="newBookNumber" class="form-label mb-1">存书数量:</label>
+                            <input type="number" placeholder="请输入数量" name="newBookNumber" id="newBookNumber"
+                                class="form-control" min="1" value="1">
+                        </div>
+                        <div class="mt-4">
+                            <label for="newBookType" class="form-label mb-1">类型:</label>
+                            <select class="form-select" id="newBookType" name="newBookType">
+                                <option value='哲学'>哲学</option>
+                                <option value='人文社会科学'>人文社会科学</option>
+                                <option value='文学艺术'>文学艺术</option>
+                                <option value='历史地理'>历史地理</option>
+                                <option value='自然应用科学'>自然应用科学</option>
+                            </select>
+                        </div>
+                        <div class="mt-4">
+                            <label for="newDescription" class="form-label mb-1">描述:</label>
+                            <input type="text" placeholder="描述" name="newDescription" id="newDescription" class="form-control">
+                        </div>
+                        <div class="d-grid mt-5">
+                            <button class="btn btn-primary btn-block" onclick="onAddNewBookClick()">提交</button>
+                        </div>
+                    </div>
+                    <!--添加图书区域结束-->
+                </div>
+            </div>
+            <!--页面主体结束-->
+        </div>
+        <!--页面主体结束-->
+
+        <!--模态框开始-->
+        <!--修改图书信息模态框开始-->
+        <div class="modal" data-bs-backdrop="static" id="editBookInfoModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态框头部开始-->
+                    <div class="modal-header">
+                        <h4 class="modal-title">修改信息</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!--模态框头部结束-->
+                    <!-- 模态框内容开始-->
+                    <div class="modal-body">
+                        <div class="row mt-2">
+                            <div class="col-5 text-center">
+                                书名:
+                            </div>
+                            <div class="col-7">
+                                <input type="text" id="modal_BookName" name="modal_BookName" placeholder="书名">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-5 text-center">
+                                ISBN号:
+                            </div>
+                            <div class="col-7">
+                                <input type="text" id="modal_IBSN" name="modal_IBSN" placeholder="IBSN号">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-5 text-center">
+                                类型:
+                            </div>
+                            <div class="col-7">
+                                <select class="form-select" id="modal_Booktype" name="modal_Booktype">
+                                    <option value='哲学'>哲学</option>
+                                    <option value='人文社会科学'>人文社会科学</option>
+                                    <option value='文学艺术'>文学艺术</option>
+                                    <option value='历史地理'>历史地理</option>
+                                    <option value='自然应用科学'>自然应用科学</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-5 text-center">
+                                存书数量:
+                            </div>
+                            <div class="col-7">
+                                <input type="number" id="modal_BookNumber" name="modal_BookNumber" placeholder="存书数量"
+                                    min="1">
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 mx-auto px-5">
+                            <button type="button" class="btn btn-success" onclick="onSubmitReviseClick()">提交</button>
+                        </div>
+                    </div>
+                    <!-- 模态框内容结束-->
+                </div>
+            </div>
+        </div>
+        <!--修改图书信息模态框结束-->
+
+        <!--下架图书警告模态框开始-->
+        <div class="modal" data-bs-backdrop="static" id="takedownWanningModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态框头部开始-->
+                    <div class="modal-header">
+                        <h4 class="modal-title text-danger">确定要下架此图书吗?</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!--模态框头部结束-->
+                    <!-- 模态框内容开始-->
+                    <div class="modal-body">
+                        <div class="row mt-4 mx-auto px-5">
+                            <div class="col-6 d-grid">
+                                <button typs="button" class="btn btn-success"
+                                    onclick="hideModal('takedownWanningModal')">取消</button>
+                            </div>
+                            <div class="col-6 d-grid">
+                                <button type="button" class="btn btn-outline-danger"
+                                    onclick="onSubmitTakeDownClcik()">下架</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 模态框内容结束-->
+                </div>
+            </div>
+        </div>
+        <!--下架图书警告模态框结束-->
+
+        <!--删除用户警告模态框开始-->
+        <div class="modal" data-bs-backdrop="static" id="deletUserWanningModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态框头部开始-->
+                    <div class="modal-header">
+                        <h4 class="modal-title text-danger">确定要删除此用户吗?</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!--模态框头部结束-->
+                    <!-- 模态框内容开始-->
+                    <div class="modal-body">
+                        <div class="row mt-4 mx-auto px-5">
+                            <div class="col-6 d-grid">
+                                <button typs="button" class="btn btn-success"
+                                    onclick="hideModal('deletUserWanningModal')">取消</button>
+                            </div>
+                            <div class="col-6 d-grid">
+                                <button type="button" class="btn btn-outline-danger"
+                                    onclick="onDeletUsereSubmit()">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 模态框内容结束-->
+                </div>
+            </div>
+        </div>
+        <!--删除用户警告模态框结束-->
+
+        <!--重置密码警告模态框开始-->
+        <div class="modal" data-bs-backdrop="static" id="resetPasswordWanningModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态框头部开始-->
+                    <div class="modal-header">
+                        <h4 class="modal-title text-dark">密码将重置为123456</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!--模态框头部结束-->
+                    <!-- 模态框内容开始-->
+                    <div class="modal-body">
+                        <div class="row mt-4 mx-auto px-5">
+                            <div class="col-6 d-grid">
+                                <button typs="button" class="btn btn-success"
+                                    onclick="hideModal('resetPasswordWanningModal')">取消</button>
+                            </div>
+                            <div class="col-6 d-grid">
+                                <button type="button" class="btn btn-outline-danger"
+                                    onclick="onResetPasswordSubmit()">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 模态框内容结束-->
+                </div>
+            </div>
+        </div>
+        <!--重置密码警告模态框结束-->
+        <!--模态框结束-->
+    </div>
+</body>
+<script src="../static/JavaScript/managePageController.js"></script>
+<script src="../static/JavaScript/userManageController.js"></script>
+<script src="../static/JavaScript/bookManageController.js"></script>
+<script src="../static/JavaScript/bookChartJavaScript.js"></script>
+<script src="../static/JavaScript/borrowChartJavaScript.js"></script>
+<script src="../static/JavaScript/returnBookController.js"></script>
+
+</html>

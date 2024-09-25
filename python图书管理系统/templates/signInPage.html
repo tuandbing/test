@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 新 Bootstrap5 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="..\static\css\signInCSS.css">
+</head>
+
+<body background="../static/image/signInBackground.jpg">
+    <div class="loginBox row">
+        <div class="col-3 loginBoxLeft text-center text-light">
+            <h2 style="position: relative; top: 45%; transform:translateY(-45%);">欢迎登录</h2>
+        </div>
+        <div class="col-9 loginBoxRight">
+            <!--选项开始-->
+            <ul id="tabs" class="nav nav-pills nav-tabs justify-content-center" role="tablist">
+                <li class="nav-item mx-2" role="presentation">
+                    <button class="nav-link active" id="student-tab" data-bs-toggle="tab" data-bs-target="#student"
+                        type="button" role="tab" aria-controls="student" aria-selected="true">学生登录</button>
+                </li>
+                <li class="nav-item mx-2" role="presentation">
+                    <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button"
+                        role="tab" aria-controls="admin" aria-selected="false">管理员登录</button>
+                </li>
+            </ul>
+            <!--选项结束-->
+            <!--选项页面开始-->
+            <div class="tab-content">
+                <!--学生登录开始-->
+                <div class="active fade show tab-pane row px-2 mt-2" id="student">
+                    <form method="post">
+                        <div class="mt-3">
+                            <label for="username" class="form-label">
+                                <h4>学工号:</h4>
+                            </label>
+                            <input type="text" class="form-control border-3" id="username" name="username"
+                                placeholder="学工号">
+                        </div>
+                        <div class="mt-3">
+                            <label for="password" class="form-label">
+                                <h4>密码:</h4>
+                            </label>
+                            <input type="password" class="form-control border-3" id="password" name="password"
+                                placeholder="密码">
+                        </div>
+                        <div class="message">{{ message }}</div>
+                        <div class="row mt-5">
+                            <div class="col text-center d-grid">
+                                <button type="button" class="btn btn-outline-success btn-block" id="toSignUp-account"
+                                    onclick="toSignUp()">注册</button>
+                            </div>
+                            <div class="col text-center d-grid">
+                                <button class="btn btn-primary btn-block" id="login-student">登录</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--学生登录结束-->
+                <!--管理员登录开始-->
+                <div class="fade show tab-pane row px-2 mt-2" id="admin">
+                    <form method="post">
+                        <div class="mt-3">
+                            <label for="admin_username" class="form-label">
+                                <h4>管理员帐号:</h4>
+                            </label>
+                            <input type="text" class="form-control border-3" id="admin_username" name="admin_username"
+                                placeholder="管理员账号">
+                        </div>
+                        <div class="mt-3">
+                            <label for="admin_password" class="form-label">
+                                <h4>密码:</h4>
+                            </label>
+                            <input type="password" class="form-control border-3" id="admin_password" name="admin_password"
+                                placeholder="密码">
+                        </div>
+                        <div class="message">{{ message }}</div>
+                        <div class="row mt-5">
+                            <div class="col text-center d-grid">
+                                <button class="btn btn-primary btn-block" id="login-phone">登录</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--管理员登录结束-->
+            </div>
+        </div>
+    </div>
+    <script src="../static/JavaScript/signIn.js"></script>
+</body>
+
+</html>

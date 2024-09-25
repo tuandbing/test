@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>普通用户-图书管理系统</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../../static/css/bundle.min.css">
+    <link rel="stylesheet" href="../../static/css/swiper.min.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    {% block add %}
+    {% endblock %}
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <!--自己的JavaScript-->
+    <script src="../../static/JavaScript/petController.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <!--自己的CSS-->
+    <link rel="stylesheet" type="text/css" href="../../static/css/desktopPetCSS.css">
+
+    <link href="/cdn.staticfile.org/layui/2.8.0/css/layui.css" rel="stylesheet">
+
+
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/Chart.js/3.9.1/chart.js"></script>
+    <script src="/scripts/jquery.min.js"></script>
+    <script src="/layui/layui.js"></script>
+    <script src="/layui/layui.all.js"></script>
+    <script src="/scripts/user/borrowingBook.js"></script>
+
+    {% endblock %}
+</head>
+<body class="layui-layout-body">
+<div class="layui-header">
+    <div class=" layui-nav " style="font-size: x-large; color: #009688;line-height: 60px;"> 图 书 馆 借 阅 系 统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+
+            <dl class="layui-nav-child">
+                <dd><a href="">基本资料</a></dd>
+                <dd><a href="">安全设置</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item"><a href="{{ url_for('signOut') }}">退出登录</a></li>
+    </ul>
+</div>
+
+<div class="layui-layout layui-layout-admin">
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree ">
+
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:">借阅管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('record') }}">&emsp;&emsp;借书记录</a></dd>
+                        <dd><a href="{{ url_for('library') }}">&emsp;&emsp;借阅书籍</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:">图书馆</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ url_for('tips') }}">&emsp;&emsp;图书馆公告</a></dd>
+                        <dd><a href="{{ url_for('letters') }}">&emsp;&emsp;读者来信</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="{{ url_for('userInfo') }}">个人信息</a></li>
+            </ul>
+        </div>
+    </div>
+    {% block content %} {% endblock %}
+</div>
+
+<!--<script src="/cdn.staticfile.org/layui/2.8.0/layui.js"></script>-->
+<!--<script>-->
+<!--layui.use(function(){-->
+<!--  var element = layui.element;-->
+<!--  element.render('nav');-->
+<!--});-->
+<!--</script>-->
+
+<!--桌面宠物区域-->
+<div class="pet" onmouseover="onPetEnter()" onmouseleave="onPetLeave()" onclick="onPetClick()">
+    <img src="../../static/image/normal.png" id="petImage">
+</div>
+<div class="searchArea invisible" id="chatArea">
+    <div class="row">
+        <div class="col-6 hideBtnArea d-grid">
+            <button class="btn btn-block btn-danger" onclick="onHideBtnClick()">关闭</button>
+        </div>
+        <div class="col-6"></div>
+    </div>
+    <div class="chatArea d-flex flex-column" id="chatFrame">
+        <!-- <div class="mt-2 me-1 userChat align-self-end">你是谁？</div>
+        <div class="mt-2 ms-1 gptChat align-self-start">我是你爸爸</div>
+        <div class="mt-2 me-1 userChat align-self-end">啊对对对</div>
+        <div class="mt-2 me-1 userChat align-self-end">摩洛哥炒饼</div>
+        <div class="mt-2 me-1 userChat align-self-end">
+            你说得对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作“提瓦特”的幻想世界，在这里，被神选中的人将被授予“神之眼”，导引元素之力。你将扮演一位名为“旅行者”的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘“原神”的真相。
+        </div>
+        <div class="mt-2 ms-1 gptChat align-self-start">孝</div>
+        <div class="mt-2 me-1 userChat align-self-end">原神怎么你了？</div>
+        <div class="mt-2 ms-1 gptChat align-self-start">急</div> -->
+    </div>
+    <div class="row mt-2" style="padding-left: 2px; padding-right: 2px;">
+        <div class="col-8"><input class="form-control" type="text" placeholder="输入内容开始聊天" id="inputFrame"></div>
+        <div class="col-4 d-grid">
+            <button class="btn btn-primary btn-block" onclick="sendChat()" id="sendButton">发送</button>
+        </div>
+    </div>
+</div>
+<!--桌面宠物区域结束-->
+
+</body>
+</html>

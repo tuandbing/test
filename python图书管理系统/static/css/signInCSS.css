@@ -1,0 +1,28 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.loginBox{
+    position:absolute;
+    width: 40vw;
+    height: 45vh;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color: whitesmoke;
+    border: 2px;
+    border-radius: 2%;
+}
+
+.loginBoxLeft{
+    background-color: black;
+    border-left: 2px;
+    border-top-left-radius: 2%;
+    border-bottom-left-radius: 2%;
+}
+
+.loginBoxRight{
+    background-color: whitesmoke;
+    margin-top: 5%;
+}

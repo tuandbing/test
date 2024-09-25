@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>宠物商店管理平台首页测试</title>
+    <!-- 新 Bootstrap5 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+    <style>
+        .mynav {}
+
+        .mynav:hover {
+            background-color: #9BAEBC;
+        }
+
+        .mycenter {
+            transform: translateY(20%);
+        }
+
+        .mybackground {
+            background-image: url("../static/image/signInBackground.jpg");
+        }
+    </style>
+</head>
+
+<body>
+<!--页面主体开始-->
+<div class="container-fluid mybackground" style="height: 100vh; width:100vw; padding-top: 10%;">
+    <div class="row bg-light mx-auto" style="height: 50vh;width:50vw;padding: 0;">
+        <div class="col-4 bg-dark text-center">
+            <div class="text-light border-light border-bottom border-2" style="margin-top: 40%;">
+                <h1>欢迎注册</h1>
+            </div>
+        </div>
+        <div class="col-8">
+            <form id="signUp-from" method="POST">
+                <div class="mt-2">
+                    <label for="username" class="form-label">
+                        <h6>学工号:</h6>
+                    </label>
+                    <input type="text" class="form-control border-3" id="username" name="username" placeholder="学工号">
+                </div>
+                <div class="mt-2">
+                    <label for="realName" class="form-label">
+                        <h6>姓名:</h6>
+                    </label>
+                    <input type="text" class="form-control border-3" id="realName" name="realName" placeholder="姓名">
+                </div>
+                <div class="mt-2">
+                    <label for="password" class="form-label">
+                        <h6>密码:</h6>
+                    </label>
+                    <input type="password" class="form-control border-3" id="password" name="password"
+                           placeholder="密码">
+                </div>
+                <div class="mt-2">
+                    <label for="repassword" class="form-label">
+                        <h6>再次输入密码:</h6>
+                    </label>
+                    <input type="password" class="form-control border-3" id="repassword" name="repassword"
+                           placeholder="再次输入密码">
+                </div>
+                <div id="tips">
+                    <h4>欢迎注册！</h4>
+                </div>
+                <div class="row-4 mt-2">
+                    <div class="col text-center d-grid">
+                        <button class="btn btn-success btn-block" id="btn-signup">注册</button>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--页面主体结束-->
+<!--提示框开始-->
+<div id="successAlert" class="alert alert-success fixed-top alert-dismissible invisible">
+    <button type="button" class="btn-close" onclick="hideAlert('successAlert')"></button>
+    <p id="successAlertText"><!--这里显示成功的信息--></p>
+</div>
+<div id="failAlert" class="alert alert-danger fixed-top alert-dismissible invisible">
+    <button type="button" class="btn-close" onclick="hideAlert('failAlert')"></button>
+    <p id="failAlertText"><!--这里显示失败的信息--></p>
+</div>
+<!--提示框结束-->
+<script src="../static/JavaScript/register.js"></script>
+</body>
+
+</html>

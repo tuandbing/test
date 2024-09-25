@@ -1,0 +1,21 @@
+#bookManage .bookTableArea {
+    position: relative;
+    height: 100%;
+
+}
+
+.bookTableArea .bookTable {
+    position: relative;
+    overflow-y: auto;
+    width: 100%;
+    height: 85%;
+    background-color: white;
+}
+
+#bookManage .addBookArea {
+    position: relative;
+    height: 100%;
+    border-left-width: 1px;
+    border-left-color: black;
+    border-left-style: solid;
+}

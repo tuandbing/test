@@ -1,0 +1,108 @@
+{% extends 'user/user_header.html' %}
+{% block head %}
+    <meta charset="UTF-8">
+    <title>普通用户-图书管理系统</title>
+    <link href="../../static/layui/css/layui.css" rel="stylesheet"/>
+    <!-- 新 Bootstrap5 核心 css 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+    <!--自己的JavaScript-->
+    <script src="../../static/JavaScript/petController.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <!--自己的CSS-->
+    <link rel="stylesheet" type="text/css" href="../../static/css/desktopPetCSS.css">
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/Chart.js/3.9.1/chart.js"></script>
+    <script src="/scripts/jquery.min.js"></script>
+    <script src="/layui/layui.all.js"></script>
+    <script src="/scripts/user/borrowingBook.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="layui-body layui-container">
+        <div class="layui-container layui-col-md6 ">
+            <hr class="layui-bg-blue">
+            <h3 style="text-align: center; font-size: xx-large"> 用 户 借 书 </h3>
+            <hr class="layui-bg-blue">
+        </div>
+        <div class="col-12 bookTableArea">
+            <!--搜索栏开始-->
+
+            <div class="row">
+                <div class="col-7">
+                    <ul class="layui-nav layui-bg-cyan " lay-filter="">
+                        <li class="layui-nav-item"><a href="{{ url_for('library') }}">全部</a></li>
+                        <li class="layui-nav-item"><a href="{{ url_for('category',btype = 'ph') }}">哲学</a></li>
+                        <li class="layui-nav-item"><a href="{{ url_for('category',btype = 'hs') }}">人文社科类</a></li>
+                        <li class="layui-nav-item"><a href="{{ url_for('category',btype = 'hg') }}">历史地理</a></li>
+                        <li class="layui-nav-item"><a href="{{ url_for('category',btype = 'li') }}">文学艺术</a></li>
+                        <li class="layui-nav-item"><a href="{{ url_for('category',btype = 'sc') }}">自然应用科学</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-5">
+                    <form class="layui-form" action="{{ url_for('search') }}" method="post">
+                        <div class="col-8" style="display:inline-block">
+                            <input type="text" name="keyword" class="form-control" placeholder="查询" autocomplete="off"
+                                   autofocus required>
+                        </div>
+                        <input type="submit" name="submit" class="btn btn-primary btn-block " value="查询">
+                    </form>
+                </div>
+            </div>
+            <!--搜索栏结束-->
+            <div class="bookTable mt-2">
+                <!--表格开始-->
+                <table class="table table-bordered border border-2">
+                    <!--芝士表头-->
+                    <thead class="table-light" id="bookTableHead">
+                    <tr>
+                        <th class="text-center">书名</th>
+                        <th class="text-center">作者</th>
+                        <th class="text-center">ISBN号</th>
+                        <th class="text-center">类型</th>
+                        <th class="text-center">存书数量</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                    </thead>
+                    <!--芝士表身-->
+                    <tbody id="bookTableBody">
+                    <!--一行数据-->
+                    {% for t in books %}
+                    <tr>
+                        <td class="text-center">{{t.bookName}}</td>
+                        <td class="text-center">{{t.author}}</td>
+                        <td class="text-center">{{t.ISBN}}</td>
+                        <td class="text-center">{{t.category}}</td>
+                        <td class="text-center">{{t.quantity}}</td>
+                        <td class="text-center">
+                            <a href="{{ url_for('findBook',book_id = t.bookId) }}">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#takedownWanningModal"
+                                       >详情
+                                </button>
+                            </a>
+                            <a href="{{ url_for('borrowBook',book_id = t.bookId) }}">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#editBookInfoModal"
+                                        >借阅14天
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!--表格结束-->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

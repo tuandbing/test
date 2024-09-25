@@ -1,0 +1,108 @@
+
+{% extends 'user/user_header.html' %}
+{% block content %}
+
+<div class="layui-body layui-container">
+        <div class="product-body">
+
+                <div class="pro-detail-sec row">
+                    <div class="col-12">
+                        <h4 class="pro-heading text-center text-lg-left">{{ book.bookName }}</h4>
+                        <p class="pro-text text-center text-lg-left">{{ book.author }}著</p>
+                    </div>
+                </div>
+                <div class="row product-list product-detail">
+
+                    <div class="col-12 col-lg-6 product-detail-slider">
+                        <div class="wrapper">
+                            <div class="Gallery swiper-container img-magnifier-container" id="gallery">
+                                <div class="swiper-wrapper myimgs">
+                                    <div class="swiper-slide"><a href="static/picture/book-1-1.jpg" data-fancybox="1"
+                                                                 title="Zoom In"><img class="myimage"
+                                                                                      src="static/picture/book-1-1.jpg"
+                                                                                      alt="gallery"></a></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 text-center text-lg-left">
+                        <div class="product-single-price">
+
+                            <p class="pro-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
+                                consectetur, adipisci velit.</p>
+                        </div>
+
+                        <div class="product-checklist">
+                            <ul>
+                                <li> 应有尽有</li>
+                                <li> 免费借阅</li>
+                                <li> 全新图书</li>
+                            </ul>
+                        </div>
+
+                        <form class="layui-form" action="{{ url_for('borrowBook',book_id=book.bookId) }}" method="post">
+                            <input  type="text" name="date" placeholder="请输入借阅天数"  autocomplete="off" autofocus required>
+                            <div class="col-12 col-lg-9">
+                                <input type="submit" name="submit" class="btn green-color-yellow-gradient-btn" value="ADD TO BORROW">
+                            </div>
+
+                        </form>
+
+                        <div class="dropdown-divider"></div>
+
+                        <div class="product-tags-list">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <p class="d-inline">国际标准书号: <span>{{ book.ISBN }}</span></p>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <p class="d-inline">数量:
+                                            <span>{{ book.quantity }}</span>
+                                        </p>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4 mb-4">
+                        <div class="row no-gutters product-all-details">
+
+                            <ul class="col-12 nav nav-tabs" id="myTab" role="tablist">
+
+                                <a class="col-12 nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                                   role="tab"
+                                   aria-controls="home" aria-selected="true">图书信息</a>
+
+                            </ul>
+                            <div class="col-12 tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                     aria-labelledby="home-tab">
+                                    <p class="product-tab-description text-center text-lg-left">If you are a small
+                                        business and
+                                        you are interested in small rebranding then this is a perfect plan for you,
+                                        having Five
+                                        years experience in Blogging, photographing, Disgning and love to
+                                        cycling,Writting,Singing and Traveling around the world</p>
+                                    <p class="product-tab-description text-center text-lg-left">If you are a small
+                                        business and
+                                        you are interested in small rebranding then this is a perfect plan for you,
+                                        having Five
+                                        years experience in Blogging, photographing, Disgning and love to
+                                        cycling,Writting,Singing and Traveling around the world</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+

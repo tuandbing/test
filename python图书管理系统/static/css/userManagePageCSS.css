@@ -1,0 +1,13 @@
+#userManage .userTableArea {
+    position: relative;
+    height: 100%;
+
+}
+
+.userTableArea .userTable {
+    position: relative;
+    overflow-y: auto;
+    width: 100%;
+    height: 85%;
+    background-color: white;
+}
