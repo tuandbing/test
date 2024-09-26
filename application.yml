@@ -1,0 +1,27 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: orderServer
+  datasource:
+    url: jdbc:mysql://localhost:3306/cloud_order?serverTimezone=GMT&characterEncoding=utf-8
+    username: root
+    password: pyw040212
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  type-aliases-package:
+  configuration:
+    map-underscore-to-camel-case: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka/
+logging:
+  level:
+    com.yg: debug
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+ribbon:
+  eager-load:
+    enabled: true
+    clients: USERSERVER
