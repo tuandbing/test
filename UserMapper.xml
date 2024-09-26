@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssm.mapper.UserMapper">
+
+    <select id="getUserList" parameterType="map" resultType="com.ssm.pojo.User">
+        select * from ts_user
+        <if test="likeName != null and likeName != ''">
+            <where>
+                name like '%${likeName}%'
+            </where>
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.ssm.pojo.User">
+        insert into ts_user(name,password,age,address) values (#{name},#{password},#{age},#{address})
+    </insert>
+    <delete id="delete" parameterType="int">
+        delete from ts_user where id = #{id}
+    </delete>
+    <update id="update" parameterType="com.ssm.pojo.User">
+        update ts_user set name = #{name},password = #{password},age = #{age},address = #{address} where id = #{id}
+    </update>
+
+    <select id="selectUserById" parameterType="int" resultType="com.ssm.pojo.User">
+        select * from ts_user where id = #{id}
+    </select>
+
+    <delete id="deleteUsers" parameterType="map">
+        delete from ts_user where id in (${ids})
+    </delete>
+</mapper>
