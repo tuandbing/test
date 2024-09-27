@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--开发文档2.1.5节中可复制-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eagles.ssm.mapper.GoodsMapper">
+
+    <resultMap id="goodsVo" type="com.eagles.ssm.pojo.Goods">
+        <id column="gid" property="gid"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="price" property="price"/>
+        <result column="up_time" property="upTime"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="cate_id" property="cateId"/>
+        <result column="goods_desc" property="goodsDesc"/>
+        <result column="num" property="num"/>
+        <association property="brand" javaType="com.eagles.ssm.pojo.Brand">
+            <id column="bid" property="bid"/>
+            <result column="brand_name" property="brandName"/>
+        </association>
+        <association property="cate" javaType="com.eagles.ssm.pojo.Cate">
+            <id column="cid" property="cid"/>
+            <result column="cate_name" property="cateName"/>
+        </association>
+    </resultMap>
+
+    <select id="findGoodsList" parameterType="map" resultMap="goodsVo">
+        select sg.*,sb.brand_name,sc.cate_name from ssm_goods sg
+        left join ssm_brand sb
+        on sg.brand_id = sb.bid
+        left join ssm_cate sc
+        on sg.cate_id = sc.cid
+        <where>
+            <if test="likeName != null">
+                goods_name like '%${likeName}%'
+            </if>
+            <if test="upTimeStart != null and upTimeEnd != null">
+                and up_time between #{upTimeStart} and #{upTimeEnd}
+            </if>
+            <if test="brandId != null">
+                and sg.brand_id = #{brandId}
+            </if>
+        </where>
+        limit #{indexStart},#{pageSize}
+    </select>
+
+    <select id="getCount" parameterType="map" resultType="Integer">
+        select count(*) from ssm_goods
+        <where>
+            <if test="likeName != null">
+                goods_name like '%${likeName}%'
+            </if>
+            <if test="upTimeStart != null and upTimeEnd != null">
+                and up_time between #{upTimeStart} and #{upTimeEnd}
+            </if>
+            <if test="brandId != null">
+                and brand_id = #{brandId}
+            </if>
+        </where>
+    </select>
+
+    <select id="findGoodsByName" parameterType="string" resultMap="goodsVo">
+        select * from ssm_goods where goods_name = #{goodsName}
+    </select>
+
+    <insert id="insertGoods" parameterType="com.eagles.ssm.pojo.Goods">
+        insert into ssm_goods(goods_name, price, up_time, brand_id, cate_id, goods_desc, num)
+        VALUES(#{goodsName},#{price},#{upTime},#{brandId},#{cateId},#{goodsDesc},1)
+    </insert>
+
+    <update id="countRaise" parameterType="string">
+        update ssm_goods set num = num + 1 where goods_name = #{goodsName}
+    </update>
+
+</mapper>
